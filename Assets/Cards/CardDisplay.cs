@@ -6,10 +6,11 @@ public class CardDisplay : MonoBehaviour
     public CardDeck deck;
     public TextMeshPro cardText;
 
-    public int DrawNewCard()
+    public Card DrawNewCard()
     {
-        int value = deck.DrawCard();
-        cardText.text = value.ToString();
-        return value;
+        Card card = deck.DrawCard();
+        cardText.text = card.Value.ToString();
+
+        return card;
     }
 }

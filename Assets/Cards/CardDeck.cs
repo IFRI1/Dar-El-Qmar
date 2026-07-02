@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CardDeck : MonoBehaviour
 {
-    private List<int> deck = new List<int>();
+    private List<Card> deck = new List<Card>();
 
     void Awake()
     {
@@ -17,11 +17,11 @@ public class CardDeck : MonoBehaviour
         // 40-card deck, values 1–12
         for (int i = 0; i < 40; i++)
         {
-            deck.Add(Random.Range(1, 13));
+            deck.Add(new Card(Random.Range(1, 13)));
         }
     }
 
-    public int DrawCard()
+    public Card DrawCard()
     {
         if (deck.Count == 0)
         {
@@ -29,9 +29,10 @@ public class CardDeck : MonoBehaviour
         }
 
         int index = Random.Range(0, deck.Count);
-        int value = deck[index];
+
+        Card card = deck[index];
         deck.RemoveAt(index);
 
-        return value;
+        return card;
     }
 }

@@ -7,7 +7,7 @@ public class RoundManager : MonoBehaviour
     public float timeBetweenCards = 3f;
 
     private float timer;
-    private int currentCard;
+    private Card currentCard;
 
     void Start()
     {
@@ -29,6 +29,6 @@ public class RoundManager : MonoBehaviour
     void DrawNewRound()
     {
         currentCard = cardDisplay.DrawNewCard();
-        reactionManager.OpenWindow(currentCard);
+        reactionManager.OpenWindow(currentCard.Value);
     }
 }
