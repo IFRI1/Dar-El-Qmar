@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class ReactionManager : MonoBehaviour
 {
     public PlayerController[] players;
+    public PlayerState[] playerStates;
     public Transform[] penaltyAnchors;
 
     public GameObject penaltyPrefab;
@@ -12,7 +13,7 @@ public class ReactionManager : MonoBehaviour
 
     public float reactionWindow = 1.5f;
 
-    private int[] penalties;
+    //private int[] penalties;
     private Dictionary<int, float> playerReactions = new Dictionary<int, float>();
 
     private bool windowOpen = false;
@@ -24,7 +25,7 @@ public class ReactionManager : MonoBehaviour
 
     void Start()
     {
-        penalties = new int[GameSettings.PlayerCount];
+        //penalties = new int[GameSettings.PlayerCount];
     }
 
     void Update()
@@ -119,12 +120,16 @@ public class ReactionManager : MonoBehaviour
     {
         if (gameOver) return;
 
-        penalties[playerIndex]++;
+        playerStates[playerIndex].AddPenalty();
+
         players[playerIndex].PlayLose();
 
-        SpawnPenalty(penaltyAnchors[playerIndex], penalties[playerIndex]);
+        SpawnPenalty(
+            penaltyAnchors[playerIndex],
+            playerStates[playerIndex].Penalties
+        );
 
-        if (penalties[playerIndex] >= maxPenalties)
+        if (playerStates[playerIndex].Penalties >= maxPenalties)
         {
             EndGame(playerIndex);
         }
@@ -173,7 +178,13 @@ public class ReactionManager : MonoBehaviour
         gameOver = true;
 
         GameResult.LosingPlayer = losingPlayerIndex + 1;
-        GameResult.Penalties = penalties;
+
+        GameResult.Penalties = new int[GameSettings.PlayerCount];
+
+        for (int i = 0; i < GameSettings.PlayerCount; i++)
+        {
+            GameResult.Penalties[i] = playerStates[i].Penalties;
+        }
 
         SceneManager.LoadScene("EndScene");
     }
