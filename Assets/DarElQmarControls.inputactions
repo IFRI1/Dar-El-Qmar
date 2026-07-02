@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "name": "DarElQmarControls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "1cec61a9-45ee-4c05-adb5-611838c7cc70",
+            "actions": [
+                {
+                    "name": "React",
+                    "type": "Button",
+                    "id": "47295258-ce7a-4696-ac7f-5274014992b5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "73e29922-7feb-4706-a0e0-e901a4525cb3",
+                    "path": "<DualSenseGamepadHID>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "React",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8402fa5-818b-4eef-9060-d3f568ddf0fc",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "React",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
