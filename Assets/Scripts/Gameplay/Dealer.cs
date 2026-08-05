@@ -49,6 +49,7 @@ public class Dealer : MonoBehaviour
         }
     }
 
+    //temporary debug output to verify shuffle order
     void Start()
     {
         foreach (Card card in deck)
