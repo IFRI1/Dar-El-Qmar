@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardDeck : MonoBehaviour
+public class Dealer : MonoBehaviour
 {
     private List<Card> deck = new List<Card>();
 
@@ -16,16 +16,16 @@ public class CardDeck : MonoBehaviour
 
         Suit[] suits =
         {
-        Suit.Coins,
-        Suit.Cups,
-        Suit.Swords,
-        Suit.Clubs
-    };
+            Suit.Coins,
+            Suit.Cups,
+            Suit.Swords,
+            Suit.Clubs
+        };
 
         int[] values =
         {
-        1,2,3,4,5,6,7,10,11,12
-    };
+            1,2,3,4,5,6,7,10,11,12
+        };
 
         foreach (Suit suit in suits)
         {
@@ -34,20 +34,5 @@ public class CardDeck : MonoBehaviour
                 deck.Add(new Card(suit, value));
             }
         }
-    }
-
-    public Card DrawCard()
-    {
-        if (deck.Count == 0)
-        {
-            CreateDeck();
-        }
-
-        int index = Random.Range(0, deck.Count);
-
-        Card card = deck[index];
-        deck.RemoveAt(index);
-
-        return card;
     }
 }
