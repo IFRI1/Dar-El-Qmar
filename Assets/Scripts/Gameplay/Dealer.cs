@@ -8,6 +8,7 @@ public class Dealer : MonoBehaviour
     void Awake()
     {
         CreateDeck();
+        ShuffleDeck();
     }
 
     void CreateDeck()
@@ -33,6 +34,26 @@ public class Dealer : MonoBehaviour
             {
                 deck.Add(new Card(suit, value));
             }
+        }
+    }
+
+    public void ShuffleDeck()
+    {
+        for (int i = deck.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+
+            Card temp = deck[i];
+            deck[i] = deck[randomIndex];
+            deck[randomIndex] = temp;
+        }
+    }
+
+    void Start()
+    {
+        foreach (Card card in deck)
+        {
+            Debug.Log(card);
         }
     }
 }
