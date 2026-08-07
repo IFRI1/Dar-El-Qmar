@@ -4,25 +4,12 @@ using UnityEngine;
 public class Dealer : MonoBehaviour
 {
     private List<Card> deck = new List<Card>();
+    private List<PlayerPile> activePlayers = new List<PlayerPile>();
 
     void Awake()
     {
         CreateDeck();
         ShuffleDeck();
-    }
-
-    public void StartGame()
-    {
-        DealCards();
-
-        List<PlayerPile> players = GetActivePlayers();
-
-        Debug.Log($"Players found: {players.Count}");
-
-        foreach (PlayerPile player in players)
-        {
-            Debug.Log($"Player {player.PlayerNumber}: {player.CardsRemaining} cards");
-        }
     }
 
     void CreateDeck()
@@ -68,31 +55,31 @@ public class Dealer : MonoBehaviour
         PlayerPile[] allPlayers =
             Object.FindObjectsByType<PlayerPile>(FindObjectsSortMode.None);
 
-        List<PlayerPile> activePlayers = new List<PlayerPile>();
+        List<PlayerPile> players = new List<PlayerPile>();
 
         foreach (PlayerPile player in allPlayers)
         {
             if (player.PlayerNumber <= GameSettings.PlayerCount)
             {
-                activePlayers.Add(player);
+                players.Add(player);
             }
         }
 
-        activePlayers.Sort((a, b) => a.PlayerNumber.CompareTo(b.PlayerNumber));
+        players.Sort((a, b) => a.PlayerNumber.CompareTo(b.PlayerNumber));
 
-        return activePlayers;
+        return players;
     }
 
     private void DealCards()
     {
-        List<PlayerPile> players = GetActivePlayers();
+        activePlayers = GetActivePlayers();
 
-        Debug.Log($"Players found while dealing: {players.Count}");
+        Debug.Log($"Players found while dealing: {activePlayers.Count}");
 
-        int cardsPerPlayer = deck.Count / players.Count;
+        int cardsPerPlayer = deck.Count / activePlayers.Count;
         int currentCard = 0;
 
-        foreach (PlayerPile player in players)
+        foreach (PlayerPile player in activePlayers)
         {
             player.ClearPile();
 
@@ -101,6 +88,23 @@ public class Dealer : MonoBehaviour
                 player.AddCard(deck[currentCard]);
                 currentCard++;
             }
+        }
+    }
+
+    public List<PlayerPile> GetPlayers()
+    {
+        return activePlayers;
+    }
+
+    public void StartGame()
+    {
+        DealCards();
+
+        Debug.Log($"Players found: {activePlayers.Count}");
+
+        foreach (PlayerPile player in activePlayers)
+        {
+            Debug.Log($"Player {player.PlayerNumber}: {player.CardsRemaining} cards");
         }
     }
 }
