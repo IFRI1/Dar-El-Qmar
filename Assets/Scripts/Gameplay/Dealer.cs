@@ -11,7 +11,7 @@ public class Dealer : MonoBehaviour
         ShuffleDeck();
     }
 
-    void Start()
+    public void StartGame()
     {
         DealCards();
 

@@ -2863,6 +2863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player3: {fileID: 581226411}
   player4: {fileID: 165295811}
+  dealer: {fileID: 974383963}
 --- !u!4 &1510647835
 Transform:
   m_ObjectHideFlags: 0
