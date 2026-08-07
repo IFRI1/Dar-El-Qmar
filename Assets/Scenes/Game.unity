@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 165295813}
   - component: {fileID: 165295812}
   - component: {fileID: 165295818}
+  - component: {fileID: 165295819}
   m_Layer: 0
   m_Name: Player 4
   m_TagString: Untagged
@@ -379,6 +380,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 4
   penalties: 0
+--- !u!114 &165295819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165295811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdeb7fdd2b5d4a2429bba0ac0bf9daad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 4
 --- !u!1 &243896316
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +470,7 @@ GameObject:
   - component: {fileID: 303418749}
   - component: {fileID: 303418750}
   - component: {fileID: 303418751}
+  - component: {fileID: 303418752}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -607,6 +622,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 2
   penalties: 0
+--- !u!114 &303418752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303418744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdeb7fdd2b5d4a2429bba0ac0bf9daad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,6 +1128,7 @@ GameObject:
   - component: {fileID: 581226413}
   - component: {fileID: 581226412}
   - component: {fileID: 581226418}
+  - component: {fileID: 581226419}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Untagged
@@ -1251,6 +1280,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 3
   penalties: 0
+--- !u!114 &581226419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581226411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdeb7fdd2b5d4a2429bba0ac0bf9daad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 3
 --- !u!1 &581235272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,6 +1856,7 @@ GameObject:
   - component: {fileID: 955014647}
   - component: {fileID: 955014648}
   - component: {fileID: 955014649}
+  - component: {fileID: 955014650}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -1977,6 +2020,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   penalties: 0
+--- !u!114 &955014650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955014641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdeb7fdd2b5d4a2429bba0ac0bf9daad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 1
 --- !u!1 &962008480
 GameObject:
   m_ObjectHideFlags: 0

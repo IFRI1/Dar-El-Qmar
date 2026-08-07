@@ -11,6 +11,20 @@ public class Dealer : MonoBehaviour
         ShuffleDeck();
     }
 
+    void Start()
+    {
+        DealCards();
+
+        List<PlayerPile> players = GetActivePlayers();
+
+        Debug.Log($"Players found: {players.Count}");
+
+        foreach (PlayerPile player in players)
+        {
+            Debug.Log($"Player {player.PlayerNumber}: {player.CardsRemaining} cards");
+        }
+    }
+
     void CreateDeck()
     {
         deck.Clear();
@@ -25,7 +39,7 @@ public class Dealer : MonoBehaviour
 
         int[] values =
         {
-            1,2,3,4,5,6,7,10,11,12
+            1, 2, 3, 4, 5, 6, 7, 10, 11, 12
         };
 
         foreach (Suit suit in suits)
@@ -49,12 +63,44 @@ public class Dealer : MonoBehaviour
         }
     }
 
-    //temporary debug output to verify shuffle order
-    void Start()
+    private List<PlayerPile> GetActivePlayers()
     {
-        foreach (Card card in deck)
+        PlayerPile[] allPlayers =
+            Object.FindObjectsByType<PlayerPile>(FindObjectsSortMode.None);
+
+        List<PlayerPile> activePlayers = new List<PlayerPile>();
+
+        foreach (PlayerPile player in allPlayers)
         {
-            Debug.Log(card);
+            if (player.PlayerNumber <= GameSettings.PlayerCount)
+            {
+                activePlayers.Add(player);
+            }
+        }
+
+        activePlayers.Sort((a, b) => a.PlayerNumber.CompareTo(b.PlayerNumber));
+
+        return activePlayers;
+    }
+
+    private void DealCards()
+    {
+        List<PlayerPile> players = GetActivePlayers();
+
+        Debug.Log($"Players found while dealing: {players.Count}");
+
+        int cardsPerPlayer = deck.Count / players.Count;
+        int currentCard = 0;
+
+        foreach (PlayerPile player in players)
+        {
+            player.ClearPile();
+
+            for (int i = 0; i < cardsPerPlayer; i++)
+            {
+                player.AddCard(deck[currentCard]);
+                currentCard++;
+            }
         }
     }
 }
