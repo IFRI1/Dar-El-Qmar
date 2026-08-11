@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class ReactionManager : MonoBehaviour
 {
     public PlayerController[] players;
+    public PlayerPile[] playerPiles;
+    public TablePile tablePile;
+    public Transform spawnedCards;
+
     public PlayerState[] playerStates;
     public Transform[] penaltyAnchors;
 
@@ -89,8 +93,10 @@ public class ReactionManager : MonoBehaviour
 
         for (int i = 0; i < GameSettings.PlayerCount; i++)
         {
-            if (i != winnerIndex)
-                ApplyPenalty(i);
+            if (i == winnerIndex)
+                continue;
+
+            CollectTable(i);
         }
 
         Invoke(nameof(ResetRound), 1.2f);
@@ -108,6 +114,19 @@ public class ReactionManager : MonoBehaviour
         }
 
         Invoke(nameof(ResetRound), 1.2f);
+    }
+
+    void CollectTable(int playerIndex)
+    {
+        List<Card> cards = tablePile.GetAllCards();
+
+        playerPiles[playerIndex].AddCards(cards);
+
+        tablePile.Clear();
+
+        tablePile.ClearVisualCards(spawnedCards);
+
+        Debug.Log($"Player {playerIndex + 1} collected {cards.Count} cards.");
     }
 
     void ResetRound()
