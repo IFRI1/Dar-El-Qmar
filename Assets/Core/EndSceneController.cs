@@ -4,29 +4,17 @@ using TMPro;
 
 public class EndSceneController : MonoBehaviour
 {
-    public TextMeshProUGUI resultText;
-    public TextMeshProUGUI scoreText;
+    [SerializeField] private TMP_Text resultText;
 
     void Start()
     {
-        resultText.text = "PLAYER " + GameResult.LosingPlayer + " LOSES";
+        int winner = GameResult.WinnerPlayer;
 
-        string scores = "Penalties:\n";
-        for (int i = 0; i < GameResult.Penalties.Length; i++)
-        {
-            scores += "P" + (i + 1) + ": " + GameResult.Penalties[i] + "\n";
-        }
-
-        scoreText.text = scores;
+        resultText.text = $"PLAYER {winner} WINS!";
     }
 
-    public void Replay()
+    public void ReturnToMenu()
     {
         SceneManager.LoadScene("StartMenu");
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
     }
 }

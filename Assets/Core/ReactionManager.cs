@@ -1,210 +1,201 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ReactionManager : MonoBehaviour
 {
-    public PlayerController[] players;
-    public PlayerPile[] playerPiles;
-    public TablePile tablePile;
-    public Transform spawnedCards;
+    [Header("References")]
+    [SerializeField] private PlayerController[] players;
+    [SerializeField] private PlayerPile[] playerPiles;
+    [SerializeField] private TablePile tablePile;
+    [SerializeField] private Transform spawnedCards;
+    [SerializeField] private TurnManager turnManager;
 
-    public PlayerState[] playerStates;
-    public Transform[] penaltyAnchors;
+    [Header("Gameplay")]
+    [SerializeField] private float resultDelay = 1f;
 
-    public GameObject penaltyPrefab;
-    public int maxPenalties = 5;
+    private Dictionary<int, float> playerReactions =
+        new Dictionary<int, float>();
 
-    public float reactionWindow = 1.5f;
+    private bool windowOpen;
+    private bool roundResolved;
 
-    //private int[] penalties;
-    private Dictionary<int, float> playerReactions = new Dictionary<int, float>();
-
-    private bool windowOpen = false;
-    private bool roundResolved = false;
-    private bool gameOver = false;
-
-    private float windowTimer;
     private int expectedAction;
-
-    void Start()
-    {
-        //penalties = new int[GameSettings.PlayerCount];
-    }
+    private int reactionPlayerIndex;
+    private int nextPlayerIndex;
 
     void Update()
     {
-        if (gameOver) return;
-        if (!windowOpen || roundResolved) return;
-
-        windowTimer -= Time.deltaTime;
-
-        if (windowTimer <= 0f)
-        {
-            ResolveNoReaction();
+        if (!windowOpen || roundResolved)
             return;
-        }
 
         CheckInput();
     }
 
-    public void OpenWindow(int cardValue)
+    public void OpenWindow(int cardValue, int playerIndex)
     {
-        expectedAction = GetExpectedAction(cardValue);
+        expectedAction = cardValue;
+        reactionPlayerIndex = playerIndex;
 
         playerReactions.Clear();
+
         windowOpen = true;
         roundResolved = false;
-        windowTimer = reactionWindow;
+
+        Debug.Log(
+            $"REACTION STARTED - Card value: {cardValue}. " +
+            $"Player {playerIndex + 1} played the special card."
+        );
     }
 
-    void CheckInput()
+    private void CheckInput()
     {
-        float reactionTime = reactionWindow - windowTimer;
+        // Temporary keyboard controls.
+        // These will later be replaced with analogue-stick gestures.
 
         if (Input.GetKeyDown(KeyCode.A))
-            RegisterReaction(0, reactionTime);
+        {
+            RegisterCorrectReaction(0);
+        }
 
         if (Input.GetKeyDown(KeyCode.L))
-            RegisterReaction(1, reactionTime);
+        {
+            RegisterCorrectReaction(1);
+        }
 
-        if (GameSettings.PlayerCount > 2 && Input.GetKeyDown(KeyCode.Q))
-            RegisterReaction(2, reactionTime);
+        if (GameSettings.PlayerCount > 2 &&
+            Input.GetKeyDown(KeyCode.Q))
+        {
+            RegisterCorrectReaction(2);
+        }
 
-        if (GameSettings.PlayerCount > 3 && Input.GetKeyDown(KeyCode.P))
-            RegisterReaction(3, reactionTime);
+        if (GameSettings.PlayerCount > 3 &&
+            Input.GetKeyDown(KeyCode.P))
+        {
+            RegisterCorrectReaction(3);
+        }
     }
 
-    void RegisterReaction(int playerIndex, float time)
+    private void RegisterCorrectReaction(int playerIndex)
     {
-        if (roundResolved) return;
-        if (playerReactions.ContainsKey(playerIndex)) return;
+        if (roundResolved)
+            return;
 
-        playerReactions.Add(playerIndex, time);
+        if (playerIndex >= GameSettings.PlayerCount)
+            return;
+
+        if (playerReactions.ContainsKey(playerIndex))
+            return;
+
+        float reactionTime = Time.time;
+
+        playerReactions.Add(playerIndex, reactionTime);
+
+        Debug.Log(
+            $"Player {playerIndex + 1} performed the correct reaction."
+        );
+
         TriggerAnimation(playerIndex);
 
-        ResolveRound(playerIndex);
+        ResolveReaction(playerIndex);
     }
 
-    void ResolveRound(int winnerIndex)
+    private void ResolveReaction(int winnerIndex)
     {
         roundResolved = true;
         windowOpen = false;
 
-        for (int i = 0; i < GameSettings.PlayerCount; i++)
-        {
-            if (i == winnerIndex)
-                continue;
+        int loserIndex = GetLoser(winnerIndex);
 
-            CollectTable(i);
-        }
+        Debug.Log(
+            $"Player {winnerIndex + 1} wins the reaction."
+        );
 
-        Invoke(nameof(ResetRound), 1.2f);
+        Debug.Log(
+            $"Player {loserIndex + 1} loses and collects the table."
+        );
+
+        players[loserIndex].PlayLose();
+
+        CollectTable(loserIndex);
+
+        // The loser plays next.
+        nextPlayerIndex = loserIndex;
+
+        Invoke(
+            nameof(FinishReaction),
+            resultDelay
+        );
     }
 
-    void ResolveNoReaction()
+    private int GetLoser(int winnerIndex)
     {
-        roundResolved = true;
-        windowOpen = false;
-
-        if (expectedAction != -1)
+        // Phase 1: two-player game.
+        if (GameSettings.PlayerCount == 2)
         {
-            for (int i = 0; i < GameSettings.PlayerCount; i++)
-                ApplyPenalty(i);
+            return winnerIndex == 0 ? 1 : 0;
         }
 
-        Invoke(nameof(ResetRound), 1.2f);
+        // Temporary fallback for 3/4 players.
+        // Proper multiplayer reaction rules will be added next.
+        for (int i = 0;
+             i < GameSettings.PlayerCount;
+             i++)
+        {
+            if (i != winnerIndex)
+                return i;
+        }
+
+        return 0;
     }
 
-    void CollectTable(int playerIndex)
+    private void CollectTable(int playerIndex)
     {
         List<Card> cards = tablePile.GetAllCards();
+
+        if (cards.Count == 0)
+        {
+            Debug.Log("Table is empty.");
+            return;
+        }
 
         playerPiles[playerIndex].AddCards(cards);
 
         tablePile.Clear();
-
         tablePile.ClearVisualCards(spawnedCards);
 
-        Debug.Log($"Player {playerIndex + 1} collected {cards.Count} cards.");
+        Debug.Log(
+            $"Player {playerIndex + 1} collected " +
+            $"{cards.Count} cards."
+        );
     }
 
-    void ResetRound()
+    private void FinishReaction()
     {
         playerReactions.Clear();
         roundResolved = false;
+
+        turnManager.EndReactionPhase(nextPlayerIndex);
     }
 
-    void ApplyPenalty(int playerIndex)
-    {
-        if (gameOver) return;
-
-        playerStates[playerIndex].AddPenalty();
-
-        players[playerIndex].PlayLose();
-
-        SpawnPenalty(
-            penaltyAnchors[playerIndex],
-            playerStates[playerIndex].Penalties
-        );
-
-        if (playerStates[playerIndex].Penalties >= maxPenalties)
-        {
-            EndGame(playerIndex);
-        }
-    }
-
-    void SpawnPenalty(Transform anchor, int count)
-    {
-        Vector3 offset = new Vector3(0, 0, -0.15f * (count - 1));
-        Instantiate(penaltyPrefab, anchor.position + offset, Quaternion.identity);
-    }
-
-    void TriggerAnimation(int playerIndex)
+    private void TriggerAnimation(int playerIndex)
     {
         switch (expectedAction)
         {
             case 1:
                 players[playerIndex].PlayHands();
                 break;
+
             case 10:
                 players[playerIndex].PlaySalute();
                 break;
+
             case 11:
                 players[playerIndex].PlayHelloSir();
                 break;
+
             case 12:
                 players[playerIndex].PlayHelloMadam();
                 break;
         }
-    }
-
-    int GetExpectedAction(int card)
-    {
-        switch (card)
-        {
-            case 1: return 1;
-            case 10: return 10;
-            case 11: return 11;
-            case 12: return 12;
-            default: return -1;
-        }
-    }
-
-    void EndGame(int losingPlayerIndex)
-    {
-        if (gameOver) return;
-        gameOver = true;
-
-        GameResult.LosingPlayer = losingPlayerIndex + 1;
-
-        GameResult.Penalties = new int[GameSettings.PlayerCount];
-
-        for (int i = 0; i < GameSettings.PlayerCount; i++)
-        {
-            GameResult.Penalties[i] = playerStates[i].Penalties;
-        }
-
-        SceneManager.LoadScene("EndScene");
     }
 }

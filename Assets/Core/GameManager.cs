@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject player3;
     public GameObject player4;
     public Dealer dealer;
+
+    private bool gameOver = false;
 
     void Start()
     {
@@ -15,5 +18,21 @@ public class GameManager : MonoBehaviour
             player4.SetActive(true);
 
         dealer.StartGame();
+    }
+
+    public void EndGame(int winningPlayerIndex)
+    {
+        if (gameOver)
+            return;
+
+        gameOver = true;
+
+        GameResult.WinnerPlayer = winningPlayerIndex + 1;
+
+        Debug.Log(
+            $"GAME OVER! Player {winningPlayerIndex + 1} wins!"
+        );
+
+        SceneManager.LoadScene("EndScene");
     }
 }

@@ -166,6 +166,7 @@ MonoBehaviour:
   dealer: {fileID: 974383963}
   tablePile: {fileID: 1500173122}
   reactionManager: {fileID: 333626619}
+  gameManager: {fileID: 1510647834}
   cardPrefab: {fileID: 4121168194201156799, guid: 7752f078cf90b37458b96b0293ba4bd7, type: 3}
   cardSpawnPoint: {fileID: 84134697}
   spawnedCards: {fileID: 755572433}
@@ -888,19 +889,13 @@ MonoBehaviour:
   - {fileID: 303418749}
   - {fileID: 581226413}
   - {fileID: 165295813}
-  playerStates:
-  - {fileID: 955014649}
-  - {fileID: 303418751}
-  - {fileID: 581226418}
-  - {fileID: 165295818}
-  penaltyAnchors:
-  - {fileID: 1201099524}
-  - {fileID: 723905217}
-  - {fileID: 2052573678}
-  - {fileID: 1797681596}
-  penaltyPrefab: {fileID: 8405381497441495064, guid: 8c47f8edc1f33774992805d97bb54c32, type: 3}
-  maxPenalties: 5
-  reactionWindow: 1.5
+  playerPiles:
+  - {fileID: 955014650}
+  - {fileID: 303418752}
+  tablePile: {fileID: 1500173122}
+  spawnedCards: {fileID: 755572433}
+  turnManager: {fileID: 11849248}
+  resultDelay: 1
 --- !u!4 &333626620
 Transform:
   m_ObjectHideFlags: 0
@@ -1588,7 +1583,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1510647835}
-  - {fileID: 962008482}
   - {fileID: 333626620}
   - {fileID: 581235274}
   - {fileID: 1054845100}
@@ -2182,53 +2176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
---- !u!1 &962008480
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 962008482}
-  - component: {fileID: 962008481}
-  m_Layer: 0
-  m_Name: RoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &962008481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962008480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b37c930a45eb7ac4b80e4133d132352f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardDisplay: {fileID: 1054845096}
-  reactionManager: {fileID: 333626619}
-  timeBetweenCards: 3
---- !u!4 &962008482
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962008480}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.47029367, y: -0.12592053, z: -1.9103689}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 673298194}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &969114997
 GameObject:
   m_ObjectHideFlags: 0

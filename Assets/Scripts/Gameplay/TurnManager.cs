@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private Dealer dealer;
     [SerializeField] private TablePile tablePile;
     [SerializeField] private ReactionManager reactionManager;
+    [SerializeField] private GameManager gameManager;
 
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform cardSpawnPoint;
@@ -16,21 +17,25 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private float turnInterval = 3f;
 
     private float timer;
+    private int currentPlayerIndex;
+    private bool waitingForReaction;
 
-    // True while players are reacting to a special card.
-    private bool waitingForReaction = false;
-
-    // Cards played during the current turn.
-    private readonly List<Card> currentTurnCards = new();
+    private List<PlayerPile> players = new List<PlayerPile>();
 
     void Start()
     {
+        players = dealer.GetPlayers();
+
+        currentPlayerIndex = 0;
         timer = turnInterval;
+
+        Debug.Log(
+            $"TurnManager found {players.Count} active players."
+        );
     }
 
     void Update()
     {
-        // Pause the game while a reaction is taking place.
         if (waitingForReaction)
             return;
 
@@ -38,64 +43,120 @@ public class TurnManager : MonoBehaviour
 
         if (timer <= 0f)
         {
-            PlayTurn();
-            timer = turnInterval;
+            PlayCurrentPlayerCard();
         }
     }
 
-    private void PlayTurn()
+    private void PlayCurrentPlayerCard()
     {
-        List<PlayerPile> players = dealer.GetPlayers();
+        if (players.Count == 0)
+            return;
 
-        currentTurnCards.Clear();
+        PlayerPile currentPlayer = players[currentPlayerIndex];
 
-        Debug.Log("===== NEW TURN =====");
+        Debug.Log(
+            $"===== PLAYER {currentPlayer.PlayerNumber}'S TURN ====="
+        );
 
-        foreach (PlayerPile player in players)
+        if (currentPlayer.CardsRemaining == 0)
         {
-            Card card = player.PlayTopCard();
-
-            if (card == null)
-                continue;
-
-            tablePile.AddCard(card);
-            currentTurnCards.Add(card);
-
-            SpawnCard(card);
-
-            Debug.Log($"Player {player.PlayerNumber} played {card}");
+            gameManager.EndGame(currentPlayerIndex);
+            return;
         }
 
-        Debug.Log($"Cards currently on table: {tablePile.CardCount}");
+        Card card = currentPlayer.PlayTopCard();
 
-        CheckReaction();
+        if (card == null)
+            return;
+
+        tablePile.AddCard(card);
+        SpawnCard(card);
+
+        Debug.Log(
+            $"Player {currentPlayer.PlayerNumber} played {card}. " +
+            $"Cards remaining: {currentPlayer.CardsRemaining}"
+        );
+
+        if (IsSpecialCard(card))
+        {
+            waitingForReaction = true;
+
+            Debug.Log(
+                $"REACTION REQUIRED: {card}"
+            );
+
+            // Tell ReactionManager which player played the special card.
+            reactionManager.OpenWindow(
+                card.Value,
+                currentPlayerIndex
+            );
+
+            return;
+        }
+
+        // If this was the player's final card, they win.
+        if (currentPlayer.CardsRemaining == 0)
+        {
+            gameManager.EndGame(currentPlayerIndex);
+            return;
+        }
+
+        MoveToNextPlayer();
     }
 
-    private void CheckReaction()
+    private bool IsSpecialCard(Card card)
     {
-        foreach (Card card in currentTurnCards)
-        {
-            if (card.Value == 1 ||
-                card.Value == 10 ||
-                card.Value == 11 ||
-                card.Value == 12)
-            {
-                waitingForReaction = true;
-
-                Debug.Log($"Reaction required! ({card})");
-
-                reactionManager.OpenWindow(card.Value);
-
-                return;
-            }
-        }
+        return card.Value == 1 ||
+               card.Value == 10 ||
+               card.Value == 11 ||
+               card.Value == 12;
     }
 
-    // Called by ReactionManager when the reaction phase has finished.
-    public void EndReactionPhase()
+    private void MoveToNextPlayer()
+    {
+        currentPlayerIndex++;
+
+        if (currentPlayerIndex >= players.Count)
+        {
+            currentPlayerIndex = 0;
+
+            Debug.Log(
+                "===== ROUND COMPLETE ====="
+            );
+        }
+
+        timer = turnInterval;
+    }
+
+    // Called by ReactionManager when the reaction has been resolved.
+    public void EndReactionPhase(int nextPlayerIndex)
     {
         waitingForReaction = false;
-        timer = turnInterval;
+
+        if (nextPlayerIndex < 0 ||
+            nextPlayerIndex >= players.Count)
+        {
+            Debug.LogError(
+                $"Invalid next player index: {nextPlayerIndex}"
+            );
+
+            return;
+        }
+
+        currentPlayerIndex = nextPlayerIndex;
+
+        Debug.Log(
+            $"Reaction finished. Continuing with Player " +
+            $"{players[currentPlayerIndex].PlayerNumber}"
+        );
+
+        // The loser should play immediately.
+        timer = 0f;
+    }
+
+    public int GetPlayerCount()
+    {
+        return players.Count;
     }
 
     private void SpawnCard(Card card)

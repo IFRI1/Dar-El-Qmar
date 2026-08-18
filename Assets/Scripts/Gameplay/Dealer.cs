@@ -74,6 +74,12 @@ public class Dealer : MonoBehaviour
     {
         activePlayers = GetActivePlayers();
 
+        if (activePlayers.Count == 0)
+        {
+            Debug.LogError("No active players found. Cards cannot be dealt.");
+            return;
+        }
+
         Debug.Log($"Players found while dealing: {activePlayers.Count}");
 
         int cardsPerPlayer = deck.Count / activePlayers.Count;
@@ -93,6 +99,9 @@ public class Dealer : MonoBehaviour
 
     public List<PlayerPile> GetPlayers()
     {
+        // Refresh the player list so TurnManager always gets the active players.
+        activePlayers = GetActivePlayers();
+
         return activePlayers;
     }
 
@@ -104,7 +113,10 @@ public class Dealer : MonoBehaviour
 
         foreach (PlayerPile player in activePlayers)
         {
-            Debug.Log($"Player {player.PlayerNumber}: {player.CardsRemaining} cards");
+            Debug.Log(
+                $"Player {player.PlayerNumber}: " +
+                $"{player.CardsRemaining} cards"
+            );
         }
     }
 }
