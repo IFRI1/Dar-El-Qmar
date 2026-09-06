@@ -93,9 +93,126 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
             ""id"": ""1cec61a9-45ee-4c05-adb5-611838c7cc70"",
             ""actions"": [
                 {
-                    ""name"": ""React"",
+                    ""name"": ""FaceSouth"",
                     ""type"": ""Button"",
-                    ""id"": ""47295258-ce7a-4696-ac7f-5274014992b5"",
+                    ""id"": ""acd04a77-9495-4a75-8df7-7bded92cba24"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaceEast"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5eb539f-b7c7-46bc-a837-c90f8309c278"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaceWest"",
+                    ""type"": ""Button"",
+                    ""id"": ""12098f10-5d40-47f5-ab2d-5dbf6ae6b21f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FaceNorth"",
+                    ""type"": ""Button"",
+                    ""id"": ""32be9066-b0f1-464e-b3ed-69e39feb9409"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""L1"",
+                    ""type"": ""Button"",
+                    ""id"": ""849b5143-a453-44ab-96ec-208a378408b3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""L2"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a207d4e-4a49-4ce9-bc6f-84d91bd99998"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""L3"",
+                    ""type"": ""Button"",
+                    ""id"": ""33a36027-e345-4302-9985-ceb4a9ae6f2c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""R1"",
+                    ""type"": ""Button"",
+                    ""id"": ""242248ed-2843-407c-86b5-a760238738f5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""R2"",
+                    ""type"": ""Button"",
+                    ""id"": ""961b2c0b-8a92-4e08-a245-1e98eb2788d8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""R3"",
+                    ""type"": ""Button"",
+                    ""id"": ""4927cb59-6b9b-4f2b-8436-e0e3b1c68078"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DPadUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d073e31-82fe-4268-9fb6-8e4cc393390e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DPadDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d024ce5-e538-449f-bf93-98fd1647822d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DPadLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""df01cb41-afd8-4844-a528-e96615b2cb39"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DPadRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4cbadbe-3c76-4317-9b40-7a12d3d51cb8"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -105,34 +222,191 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""73e29922-7feb-4706-a0e0-e901a4525cb3"",
+                    ""id"": ""91505a8b-be0d-4228-8955-6df6e7150672"",
                     ""path"": ""<DualSenseGamepadHID>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""React"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""FaceSouth"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f8402fa5-818b-4eef-9060-d3f568ddf0fc"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""id"": ""ea3f4c89-99b5-45e6-9712-c4a8b9d33c16"",
+                    ""path"": ""<DualSenseGamepadHID>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""React"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""FaceEast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88407952-712b-42e9-8627-72ecb269a2fc"",
+                    ""path"": ""<DualSenseGamepadHID>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""FaceWest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1e6cd71-d0a8-4f77-b614-4e802f2f5309"",
+                    ""path"": ""<DualSenseGamepadHID>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""FaceNorth"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c0655d0-6f68-4372-af8e-50b59eaf9402"",
+                    ""path"": ""<DualSenseGamepadHID>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""L1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a6da19a-18f7-4388-964c-62e494f0afa3"",
+                    ""path"": ""<DualSenseGamepadHID>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""L2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e4cfcfd-4127-4a71-b658-676c5d13823f"",
+                    ""path"": ""<DualSenseGamepadHID>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""L3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67567b10-0c72-490b-82c2-a4f103d6f25c"",
+                    ""path"": ""<DualSenseGamepadHID>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""R1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07a5b946-b9c3-420d-b5c2-78615335563e"",
+                    ""path"": ""<DualSenseGamepadHID>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""R2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a7ed63a-5789-4078-9c77-8bf1e83c68ca"",
+                    ""path"": ""<DualSenseGamepadHID>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""R3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""614661eb-6bbb-478f-a36f-294f265003d5"",
+                    ""path"": ""<DualSenseGamepadHID>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DPadUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30a2f90a-adb8-4b8e-af9b-c3d0d88eaee6"",
+                    ""path"": ""<DualSenseGamepadHID>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DPadDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05371f9d-3144-475c-b2ce-8276f13674fb"",
+                    ""path"": ""<DualSenseGamepadHID>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DPadLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b89a4cb5-b1b6-4240-a96a-db73fe66bf4f"",
+                    ""path"": ""<DualSenseGamepadHID>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DPadRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<DualSenseGamepadHID>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_React = m_Gameplay.FindAction("React", throwIfNotFound: true);
+        m_Gameplay_FaceSouth = m_Gameplay.FindAction("FaceSouth", throwIfNotFound: true);
+        m_Gameplay_FaceEast = m_Gameplay.FindAction("FaceEast", throwIfNotFound: true);
+        m_Gameplay_FaceWest = m_Gameplay.FindAction("FaceWest", throwIfNotFound: true);
+        m_Gameplay_FaceNorth = m_Gameplay.FindAction("FaceNorth", throwIfNotFound: true);
+        m_Gameplay_L1 = m_Gameplay.FindAction("L1", throwIfNotFound: true);
+        m_Gameplay_L2 = m_Gameplay.FindAction("L2", throwIfNotFound: true);
+        m_Gameplay_L3 = m_Gameplay.FindAction("L3", throwIfNotFound: true);
+        m_Gameplay_R1 = m_Gameplay.FindAction("R1", throwIfNotFound: true);
+        m_Gameplay_R2 = m_Gameplay.FindAction("R2", throwIfNotFound: true);
+        m_Gameplay_R3 = m_Gameplay.FindAction("R3", throwIfNotFound: true);
+        m_Gameplay_DPadUp = m_Gameplay.FindAction("DPadUp", throwIfNotFound: true);
+        m_Gameplay_DPadDown = m_Gameplay.FindAction("DPadDown", throwIfNotFound: true);
+        m_Gameplay_DPadLeft = m_Gameplay.FindAction("DPadLeft", throwIfNotFound: true);
+        m_Gameplay_DPadRight = m_Gameplay.FindAction("DPadRight", throwIfNotFound: true);
     }
 
     ~@DarElQmarControls()
@@ -213,7 +487,20 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
     // Gameplay
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-    private readonly InputAction m_Gameplay_React;
+    private readonly InputAction m_Gameplay_FaceSouth;
+    private readonly InputAction m_Gameplay_FaceEast;
+    private readonly InputAction m_Gameplay_FaceWest;
+    private readonly InputAction m_Gameplay_FaceNorth;
+    private readonly InputAction m_Gameplay_L1;
+    private readonly InputAction m_Gameplay_L2;
+    private readonly InputAction m_Gameplay_L3;
+    private readonly InputAction m_Gameplay_R1;
+    private readonly InputAction m_Gameplay_R2;
+    private readonly InputAction m_Gameplay_R3;
+    private readonly InputAction m_Gameplay_DPadUp;
+    private readonly InputAction m_Gameplay_DPadDown;
+    private readonly InputAction m_Gameplay_DPadLeft;
+    private readonly InputAction m_Gameplay_DPadRight;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -226,9 +513,61 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
         /// </summary>
         public GameplayActions(@DarElQmarControls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/React".
+        /// Provides access to the underlying input action "Gameplay/FaceSouth".
         /// </summary>
-        public InputAction @React => m_Wrapper.m_Gameplay_React;
+        public InputAction @FaceSouth => m_Wrapper.m_Gameplay_FaceSouth;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaceEast".
+        /// </summary>
+        public InputAction @FaceEast => m_Wrapper.m_Gameplay_FaceEast;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaceWest".
+        /// </summary>
+        public InputAction @FaceWest => m_Wrapper.m_Gameplay_FaceWest;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/FaceNorth".
+        /// </summary>
+        public InputAction @FaceNorth => m_Wrapper.m_Gameplay_FaceNorth;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/L1".
+        /// </summary>
+        public InputAction @L1 => m_Wrapper.m_Gameplay_L1;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/L2".
+        /// </summary>
+        public InputAction @L2 => m_Wrapper.m_Gameplay_L2;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/L3".
+        /// </summary>
+        public InputAction @L3 => m_Wrapper.m_Gameplay_L3;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/R1".
+        /// </summary>
+        public InputAction @R1 => m_Wrapper.m_Gameplay_R1;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/R2".
+        /// </summary>
+        public InputAction @R2 => m_Wrapper.m_Gameplay_R2;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/R3".
+        /// </summary>
+        public InputAction @R3 => m_Wrapper.m_Gameplay_R3;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/DPadUp".
+        /// </summary>
+        public InputAction @DPadUp => m_Wrapper.m_Gameplay_DPadUp;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/DPadDown".
+        /// </summary>
+        public InputAction @DPadDown => m_Wrapper.m_Gameplay_DPadDown;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/DPadLeft".
+        /// </summary>
+        public InputAction @DPadLeft => m_Wrapper.m_Gameplay_DPadLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Gameplay/DPadRight".
+        /// </summary>
+        public InputAction @DPadRight => m_Wrapper.m_Gameplay_DPadRight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -255,9 +594,48 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-            @React.started += instance.OnReact;
-            @React.performed += instance.OnReact;
-            @React.canceled += instance.OnReact;
+            @FaceSouth.started += instance.OnFaceSouth;
+            @FaceSouth.performed += instance.OnFaceSouth;
+            @FaceSouth.canceled += instance.OnFaceSouth;
+            @FaceEast.started += instance.OnFaceEast;
+            @FaceEast.performed += instance.OnFaceEast;
+            @FaceEast.canceled += instance.OnFaceEast;
+            @FaceWest.started += instance.OnFaceWest;
+            @FaceWest.performed += instance.OnFaceWest;
+            @FaceWest.canceled += instance.OnFaceWest;
+            @FaceNorth.started += instance.OnFaceNorth;
+            @FaceNorth.performed += instance.OnFaceNorth;
+            @FaceNorth.canceled += instance.OnFaceNorth;
+            @L1.started += instance.OnL1;
+            @L1.performed += instance.OnL1;
+            @L1.canceled += instance.OnL1;
+            @L2.started += instance.OnL2;
+            @L2.performed += instance.OnL2;
+            @L2.canceled += instance.OnL2;
+            @L3.started += instance.OnL3;
+            @L3.performed += instance.OnL3;
+            @L3.canceled += instance.OnL3;
+            @R1.started += instance.OnR1;
+            @R1.performed += instance.OnR1;
+            @R1.canceled += instance.OnR1;
+            @R2.started += instance.OnR2;
+            @R2.performed += instance.OnR2;
+            @R2.canceled += instance.OnR2;
+            @R3.started += instance.OnR3;
+            @R3.performed += instance.OnR3;
+            @R3.canceled += instance.OnR3;
+            @DPadUp.started += instance.OnDPadUp;
+            @DPadUp.performed += instance.OnDPadUp;
+            @DPadUp.canceled += instance.OnDPadUp;
+            @DPadDown.started += instance.OnDPadDown;
+            @DPadDown.performed += instance.OnDPadDown;
+            @DPadDown.canceled += instance.OnDPadDown;
+            @DPadLeft.started += instance.OnDPadLeft;
+            @DPadLeft.performed += instance.OnDPadLeft;
+            @DPadLeft.canceled += instance.OnDPadLeft;
+            @DPadRight.started += instance.OnDPadRight;
+            @DPadRight.performed += instance.OnDPadRight;
+            @DPadRight.canceled += instance.OnDPadRight;
         }
 
         /// <summary>
@@ -269,9 +647,48 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
         /// <seealso cref="GameplayActions" />
         private void UnregisterCallbacks(IGameplayActions instance)
         {
-            @React.started -= instance.OnReact;
-            @React.performed -= instance.OnReact;
-            @React.canceled -= instance.OnReact;
+            @FaceSouth.started -= instance.OnFaceSouth;
+            @FaceSouth.performed -= instance.OnFaceSouth;
+            @FaceSouth.canceled -= instance.OnFaceSouth;
+            @FaceEast.started -= instance.OnFaceEast;
+            @FaceEast.performed -= instance.OnFaceEast;
+            @FaceEast.canceled -= instance.OnFaceEast;
+            @FaceWest.started -= instance.OnFaceWest;
+            @FaceWest.performed -= instance.OnFaceWest;
+            @FaceWest.canceled -= instance.OnFaceWest;
+            @FaceNorth.started -= instance.OnFaceNorth;
+            @FaceNorth.performed -= instance.OnFaceNorth;
+            @FaceNorth.canceled -= instance.OnFaceNorth;
+            @L1.started -= instance.OnL1;
+            @L1.performed -= instance.OnL1;
+            @L1.canceled -= instance.OnL1;
+            @L2.started -= instance.OnL2;
+            @L2.performed -= instance.OnL2;
+            @L2.canceled -= instance.OnL2;
+            @L3.started -= instance.OnL3;
+            @L3.performed -= instance.OnL3;
+            @L3.canceled -= instance.OnL3;
+            @R1.started -= instance.OnR1;
+            @R1.performed -= instance.OnR1;
+            @R1.canceled -= instance.OnR1;
+            @R2.started -= instance.OnR2;
+            @R2.performed -= instance.OnR2;
+            @R2.canceled -= instance.OnR2;
+            @R3.started -= instance.OnR3;
+            @R3.performed -= instance.OnR3;
+            @R3.canceled -= instance.OnR3;
+            @DPadUp.started -= instance.OnDPadUp;
+            @DPadUp.performed -= instance.OnDPadUp;
+            @DPadUp.canceled -= instance.OnDPadUp;
+            @DPadDown.started -= instance.OnDPadDown;
+            @DPadDown.performed -= instance.OnDPadDown;
+            @DPadDown.canceled -= instance.OnDPadDown;
+            @DPadLeft.started -= instance.OnDPadLeft;
+            @DPadLeft.performed -= instance.OnDPadLeft;
+            @DPadLeft.canceled -= instance.OnDPadLeft;
+            @DPadRight.started -= instance.OnDPadRight;
+            @DPadRight.performed -= instance.OnDPadRight;
+            @DPadRight.canceled -= instance.OnDPadRight;
         }
 
         /// <summary>
@@ -305,6 +722,19 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="GameplayActions" /> instance referencing this action map.
     /// </summary>
     public GameplayActions @Gameplay => new GameplayActions(this);
+    private int m_GamepadSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Gameplay" which allows adding and removing callbacks.
     /// </summary>
@@ -313,11 +743,102 @@ public partial class @DarElQmarControls: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         /// <summary>
-        /// Method invoked when associated input action "React" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FaceSouth" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnReact(InputAction.CallbackContext context);
+        void OnFaceSouth(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaceEast" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaceEast(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaceWest" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaceWest(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FaceNorth" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFaceNorth(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "L1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnL1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "L2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnL2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "L3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnL3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "R1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnR1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "R2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnR2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "R3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnR3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DPadUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDPadUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DPadDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDPadDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DPadLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDPadLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DPadRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDPadRight(InputAction.CallbackContext context);
     }
 }

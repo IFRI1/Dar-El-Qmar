@@ -7,9 +7,126 @@
             "id": "1cec61a9-45ee-4c05-adb5-611838c7cc70",
             "actions": [
                 {
-                    "name": "React",
+                    "name": "FaceSouth",
                     "type": "Button",
-                    "id": "47295258-ce7a-4696-ac7f-5274014992b5",
+                    "id": "acd04a77-9495-4a75-8df7-7bded92cba24",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FaceEast",
+                    "type": "Button",
+                    "id": "f5eb539f-b7c7-46bc-a837-c90f8309c278",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FaceWest",
+                    "type": "Button",
+                    "id": "12098f10-5d40-47f5-ab2d-5dbf6ae6b21f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FaceNorth",
+                    "type": "Button",
+                    "id": "32be9066-b0f1-464e-b3ed-69e39feb9409",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L1",
+                    "type": "Button",
+                    "id": "849b5143-a453-44ab-96ec-208a378408b3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L2",
+                    "type": "Button",
+                    "id": "7a207d4e-4a49-4ce9-bc6f-84d91bd99998",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L3",
+                    "type": "Button",
+                    "id": "33a36027-e345-4302-9985-ceb4a9ae6f2c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R1",
+                    "type": "Button",
+                    "id": "242248ed-2843-407c-86b5-a760238738f5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R2",
+                    "type": "Button",
+                    "id": "961b2c0b-8a92-4e08-a245-1e98eb2788d8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R3",
+                    "type": "Button",
+                    "id": "4927cb59-6b9b-4f2b-8436-e0e3b1c68078",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DPadUp",
+                    "type": "Button",
+                    "id": "6d073e31-82fe-4268-9fb6-8e4cc393390e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DPadDown",
+                    "type": "Button",
+                    "id": "9d024ce5-e538-449f-bf93-98fd1647822d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DPadLeft",
+                    "type": "Button",
+                    "id": "df01cb41-afd8-4844-a528-e96615b2cb39",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DPadRight",
+                    "type": "Button",
+                    "id": "a4cbadbe-3c76-4317-9b40-7a12d3d51cb8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -19,28 +136,172 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "73e29922-7feb-4706-a0e0-e901a4525cb3",
+                    "id": "91505a8b-be0d-4228-8955-6df6e7150672",
                     "path": "<DualSenseGamepadHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "React",
+                    "groups": ";Gamepad",
+                    "action": "FaceSouth",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f8402fa5-818b-4eef-9060-d3f568ddf0fc",
-                    "path": "<Keyboard>/a",
+                    "id": "ea3f4c89-99b5-45e6-9712-c4a8b9d33c16",
+                    "path": "<DualSenseGamepadHID>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "React",
+                    "groups": ";Gamepad",
+                    "action": "FaceEast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88407952-712b-42e9-8627-72ecb269a2fc",
+                    "path": "<DualSenseGamepadHID>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "FaceWest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f1e6cd71-d0a8-4f77-b614-4e802f2f5309",
+                    "path": "<DualSenseGamepadHID>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "FaceNorth",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c0655d0-6f68-4372-af8e-50b59eaf9402",
+                    "path": "<DualSenseGamepadHID>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "L1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a6da19a-18f7-4388-964c-62e494f0afa3",
+                    "path": "<DualSenseGamepadHID>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "L2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e4cfcfd-4127-4a71-b658-676c5d13823f",
+                    "path": "<DualSenseGamepadHID>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "L3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67567b10-0c72-490b-82c2-a4f103d6f25c",
+                    "path": "<DualSenseGamepadHID>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "R1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07a5b946-b9c3-420d-b5c2-78615335563e",
+                    "path": "<DualSenseGamepadHID>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "R2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a7ed63a-5789-4078-9c77-8bf1e83c68ca",
+                    "path": "<DualSenseGamepadHID>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "R3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "614661eb-6bbb-478f-a36f-294f265003d5",
+                    "path": "<DualSenseGamepadHID>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DPadUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30a2f90a-adb8-4b8e-af9b-c3d0d88eaee6",
+                    "path": "<DualSenseGamepadHID>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DPadDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05371f9d-3144-475c-b2ce-8276f13674fb",
+                    "path": "<DualSenseGamepadHID>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DPadLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b89a4cb5-b1b6-4240-a96a-db73fe66bf4f",
+                    "path": "<DualSenseGamepadHID>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DPadRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<DualSenseGamepadHID>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
