@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using TMPro;
 
 public class ReactionManager : MonoBehaviour
 {
@@ -12,94 +11,60 @@ public class ReactionManager : MonoBehaviour
     [SerializeField] private TablePile tablePile;
     [SerializeField] private Transform spawnedCards;
     [SerializeField] private TurnManager turnManager;
-    [SerializeField] private TMP_Text reactionText;
 
     [Header("Reaction Settings")]
     [SerializeField] private int minimumSequenceLength = 2;
     [SerializeField] private int maximumSequenceLength = 4;
     [SerializeField] private float resultDelay = 1f;
 
-    private readonly List<ReactionInput> currentSequence =
-        new List<ReactionInput>();
-
-    private readonly Dictionary<int, int> playerProgress =
-        new Dictionary<int, int>();
-
-    private readonly Dictionary<int, float> completionTimes =
-        new Dictionary<int, float>();
+    private readonly List<ReactionInput> currentSequence = new List<ReactionInput>();
+    private readonly Dictionary<int, int> playerProgress = new Dictionary<int, int>();
+    private readonly HashSet<int> eliminatedPlayers = new HashSet<int>();
+    private readonly List<int> completionOrder = new List<int>();
 
     private bool windowOpen;
     private bool roundResolved;
-
     private int expectedAction;
     private int reactionPlayerIndex;
     private int nextPlayerIndex;
-
     private float reactionStartTime;
 
-    //Start reaction
+    // Start reaction
     public void OpenWindow(int cardValue, int playerIndex)
     {
         expectedAction = cardValue;
         reactionPlayerIndex = playerIndex;
 
         GenerateRandomSequence();
-
         ResetPlayers();
 
         windowOpen = true;
         roundResolved = false;
-
         reactionStartTime = Time.time;
 
-        Debug.Log($"REACTION STARTED - Card value: {cardValue}. " +$"Player {playerIndex + 1} played the special card.");
-
+        Debug.Log($"REACTION STARTED - Card value: {cardValue}. Player {playerIndex + 1} played the special card.");
         Debug.Log($"Required reaction: {GetSequenceText()}");
-
-        if (reactionText != null)
-        { 
-          reactionText.text = GetSequenceText();
-        }
-
-        TriggerAnimation(reactionPlayerIndex);
     }
 
-    //Random sequence
+    // Create the random sequence
     private void GenerateRandomSequence()
     {
         currentSequence.Clear();
 
         ReactionInput[] possibleInputs =
         {
-            ReactionInput.FaceSouth,
-            ReactionInput.FaceEast,
-            ReactionInput.FaceWest,
-            ReactionInput.FaceNorth,
-
-            ReactionInput.L1,
-            ReactionInput.L2,
-            ReactionInput.L3,
-
-            ReactionInput.R1,
-            ReactionInput.R2,
-            ReactionInput.R3,
-
-            ReactionInput.DPadUp,
-            ReactionInput.DPadDown,
-            ReactionInput.DPadLeft,
-            ReactionInput.DPadRight
+            ReactionInput.FaceSouth, ReactionInput.FaceEast, ReactionInput.FaceWest, ReactionInput.FaceNorth,
+            ReactionInput.L1, ReactionInput.L2, ReactionInput.L3,
+            ReactionInput.R1, ReactionInput.R2, ReactionInput.R3,
+            ReactionInput.DPadUp, ReactionInput.DPadDown, ReactionInput.DPadLeft, ReactionInput.DPadRight
         };
 
-        int length = Random.Range(minimumSequenceLength,maximumSequenceLength + 1);
+        int length = Random.Range(minimumSequenceLength, maximumSequenceLength + 1);
 
         for (int i = 0; i < length; i++)
         {
-            ReactionInput randomInput =
-                possibleInputs[
-                    Random.Range(0, possibleInputs.Length)
-                ];
+            ReactionInput randomInput = possibleInputs[Random.Range(0, possibleInputs.Length)];
 
-            // Avoid generating the same input twice in a row.
             if (i > 0 && randomInput == currentSequence[i - 1])
             {
                 i--;
@@ -110,16 +75,13 @@ public class ReactionManager : MonoBehaviour
         }
     }
 
-    //Player input
+    // Listen to every active player's controller
     private void SubscribeToPlayers()
     {
         for (int i = 0; i < playerInputs.Length; i++)
         {
             if (playerInputs[i] != null)
-            {
-                playerInputs[i].OnReactionInput +=
-                    HandlePlayerInput;
-            }
+                playerInputs[i].OnReactionInput += HandlePlayerInput;
         }
     }
 
@@ -128,10 +90,7 @@ public class ReactionManager : MonoBehaviour
         for (int i = 0; i < playerInputs.Length; i++)
         {
             if (playerInputs[i] != null)
-            {
-                playerInputs[i].OnReactionInput -=
-                    HandlePlayerInput;
-            }
+                playerInputs[i].OnReactionInput -= HandlePlayerInput;
         }
     }
 
@@ -142,7 +101,11 @@ public class ReactionManager : MonoBehaviour
 
         int playerIndex = GetPlayerIndex(playerInput);
 
-        if (playerIndex < 0)
+        if (playerIndex < 0 || playerIndex >= GameSettings.PlayerCount)
+            return;
+
+        // Ignore players who already finished or lost.
+        if (eliminatedPlayers.Contains(playerIndex) || completionOrder.Contains(playerIndex))
             return;
 
         ProcessInput(playerIndex, input);
@@ -159,10 +122,10 @@ public class ReactionManager : MonoBehaviour
         return -1;
     }
 
-    //Inputs
-    private void ProcessInput(int playerIndex,ReactionInput input)
+    // Check the player's next input
+    private void ProcessInput(int playerIndex, ReactionInput input)
     {
-        if (playerIndex >= GameSettings.PlayerCount)
+        if (!windowOpen || roundResolved)
             return;
 
         if (!playerProgress.ContainsKey(playerIndex))
@@ -170,129 +133,163 @@ public class ReactionManager : MonoBehaviour
 
         int progress = playerProgress[playerIndex];
 
+        if (progress >= currentSequence.Count)
+            return;
+
+        // Wrong input means immediate elimination.
         if (input != currentSequence[progress])
         {
             Debug.Log($"Player {playerIndex + 1} performed the WRONG reaction.");
-
             ResolveIncorrectReaction(playerIndex);
             return;
         }
 
         playerProgress[playerIndex]++;
 
-        Debug.Log($"Player {playerIndex + 1} correct input: " + $"{input} ({playerProgress[playerIndex]}/" + $"{currentSequence.Count})");
+        Debug.Log($"Player {playerIndex + 1} correct input: {input} ({playerProgress[playerIndex]}/{currentSequence.Count})");
 
+        // Sequence completed.
         if (playerProgress[playerIndex] >= currentSequence.Count)
         {
-            float completionTime =
-                Time.time - reactionStartTime;
+            float completionTime = Time.time - reactionStartTime;
 
-            completionTimes[playerIndex] =
-                completionTime;
+            completionOrder.Add(playerIndex);
 
-            Debug.Log($"Player {playerIndex + 1} completed the reaction " + $"in {completionTime:F3} seconds.");
+            Debug.Log($"Player {playerIndex + 1} COMPLETED the reaction in {completionTime:F3} seconds.");
+            Debug.Log($"Player {playerIndex + 1} is currently #{completionOrder.Count}.");
 
-            CheckForCompletion();
+            ResolveCorrectReaction(playerIndex);
         }
     }
 
-    //Completion
-    private void CheckForCompletion()
+    // Handle a correct sequence
+    private void ResolveCorrectReaction(int playerIndex)
     {
-        int completedPlayers = 0;
+        int playerCount = GameSettings.PlayerCount;
 
-        for (int i = 0;i < GameSettings.PlayerCount; i++)
+        // In 2-player mode, first correct player wins immediately.
+        if (playerCount == 2)
         {
-            if (completionTimes.ContainsKey(i))
-                completedPlayers++;
-        }
+            int loserIndex = playerIndex == 0 ? 1 : 0;
 
-        if (completedPlayers < GameSettings.PlayerCount)
+            roundResolved = true;
+            windowOpen = false;
+
+            Debug.Log($"Player {playerIndex + 1} WINS the reaction!");
+            Debug.Log($"Player {loserIndex + 1} LOSES the reaction!");
+
+            PlayLoseAnimation(loserIndex);
+
+            CollectTable(playerIndex);
+
+            nextPlayerIndex = playerIndex;
+            Invoke(nameof(FinishReaction), resultDelay);
             return;
-
-        int fastestPlayer = GetFastestPlayer();
-        int lastPlayer = GetLastPlayer();
-
-        Debug.Log($"Player {fastestPlayer + 1} was the fastest.");
-
-        Debug.Log($"Player {lastPlayer + 1} was the last to react.");
-
-        ResolveReaction(fastestPlayer,lastPlayer);
-    }
-
-    private int GetFastestPlayer()
-    {
-        int fastestPlayer = -1;
-        float fastestTime = float.MaxValue;
-
-        foreach (var result in completionTimes)
-        {
-            if (result.Value < fastestTime)
-            {
-                fastestTime = result.Value;
-                fastestPlayer = result.Key;
-            }
         }
 
-        return fastestPlayer;
+        // In 3/4-player mode, the first correct player takes the next winner position.
+        CheckMultiPlayerResolution();
     }
 
-    private int GetLastPlayer()
-    {
-        int lastPlayer = -1;
-        float lastTime = float.MinValue;
-
-        foreach (var result in completionTimes)
-        {
-            if (result.Value > lastTime)
-            {
-                lastTime = result.Value;
-                lastPlayer = result.Key;
-            }
-        }
-
-        return lastPlayer;
-    }
-
-    // Wrong reaction
+    // Handle a wrong input
     private void ResolveIncorrectReaction(int loserIndex)
     {
-        roundResolved = true;
-        windowOpen = false;
+        if (roundResolved)
+            return;
 
-        Debug.Log( $"Player {loserIndex + 1} loses because " + $"they performed the wrong reaction." );
+        eliminatedPlayers.Add(loserIndex);
 
-        ResolveLoser(loserIndex);
+        Debug.Log($"Player {loserIndex + 1} is ELIMINATED because they performed the wrong reaction.");
+
+        // The player who made the mistake dies immediately.
+        PlayLoseAnimation(loserIndex);
+
+        // In 2-player mode, the other player wins immediately.
+        if (GameSettings.PlayerCount == 2)
+        {
+            int winnerIndex = loserIndex == 0 ? 1 : 0;
+
+            roundResolved = true;
+            windowOpen = false;
+
+            Debug.Log($"Player {winnerIndex + 1} WINS because Player {loserIndex + 1} made a wrong input.");
+
+            CollectTable(winnerIndex);
+
+            nextPlayerIndex = winnerIndex;
+            Invoke(nameof(FinishReaction), resultDelay);
+            return;
+        }
+
+        // In 3/4-player mode, the remaining players continue.
+        CheckMultiPlayerResolution();
     }
 
-    // Correct reaction
-    private void ResolveReaction(int winnerIndex, int loserIndex)
+    // Resolve 3/4-player rounds
+    private void CheckMultiPlayerResolution()
     {
-        roundResolved = true;
-        windowOpen = false;
+        int playerCount = GameSettings.PlayerCount;
+        int resolvedPlayers = completionOrder.Count + eliminatedPlayers.Count;
+        int activePlayers = playerCount - resolvedPlayers;
 
-        Debug.Log($"Player {winnerIndex + 1} wins the reaction.");
+        // If only one player remains, that player is the loser.
+        if (activePlayers == 1)
+        {
+            for (int i = 0; i < playerCount; i++)
+            {
+                if (!completionOrder.Contains(i) && !eliminatedPlayers.Contains(i))
+                {
+                    roundResolved = true;
+                    windowOpen = false;
 
-        Debug.Log($"Player {loserIndex + 1} was last and loses.");
+                    Debug.Log($"Player {i + 1} is the final remaining player and LOSES.");
 
-        ResolveLoser(loserIndex);
+                    PlayLoseAnimation(i);
+
+                    // The first completed player wins the round.
+                    int winnerIndex = completionOrder.Count > 0 ? completionOrder[0] : -1;
+
+                    if (winnerIndex >= 0)
+                    {
+                        CollectTable(winnerIndex);
+                        nextPlayerIndex = winnerIndex;
+                    }
+                    else
+                    {
+                        CollectTable(i);
+                        nextPlayerIndex = i;
+                    }
+
+                    Invoke(nameof(FinishReaction), resultDelay);
+                    return;
+                }
+            }
+        }
     }
 
-    //Loser
-    private void ResolveLoser(int loserIndex)
+    // Trigger the death animation on the correct character
+    private void PlayLoseAnimation(int playerIndex)
     {
-        players[loserIndex].PlayLose();
+        if (playerIndex < 0 || playerIndex >= playerInputs.Length)
+            return;
 
-        CollectTable(loserIndex);
-
-        nextPlayerIndex = loserIndex;
-
-        Invoke(nameof(FinishReaction), resultDelay);
+        if (playerInputs[playerIndex] != null)
+        {
+            Debug.Log($"Player {playerIndex + 1} -> PLAYING LOSE ANIMATION");
+            playerInputs[playerIndex].PlayLoseAnimation();
+        }
+        else
+        {
+            Debug.LogError($"Player {playerIndex + 1} has no PlayerInputHandler assigned.");
+        }
     }
 
-
+    // Move the table cards to the winner
     private void CollectTable(int playerIndex)
     {
+        if (playerIndex < 0 || playerIndex >= playerPiles.Length)
+            return;
+
         List<Card> cards = tablePile.GetAllCards();
 
         if (cards.Count == 0)
@@ -302,46 +299,43 @@ public class ReactionManager : MonoBehaviour
         }
 
         playerPiles[playerIndex].AddCards(cards);
-
         tablePile.Clear();
-
         tablePile.ClearVisualCards(spawnedCards);
 
-        Debug.Log($"Player {playerIndex + 1} collected " + $"{cards.Count} cards.");
+        Debug.Log($"Player {playerIndex + 1} collected {cards.Count} cards.");
     }
-
 
     private void FinishReaction()
     {
         playerProgress.Clear();
-        completionTimes.Clear();
+        completionOrder.Clear();
+        eliminatedPlayers.Clear();
 
         roundResolved = false;
+        windowOpen = false;
 
         turnManager.EndReactionPhase(nextPlayerIndex);
     }
 
-
+    // Reset players for a new reaction
     private void ResetPlayers()
     {
         playerProgress.Clear();
-        completionTimes.Clear();
+        completionOrder.Clear();
+        eliminatedPlayers.Clear();
 
-        for (int i = 0;i < playerInputs.Length;i++)
+        for (int i = 0; i < playerInputs.Length; i++)
         {
             if (playerInputs[i] != null)
-            {
                 playerInputs[i].ResetInput();
-            }
         }
     }
-
 
     private string GetSequenceText()
     {
         StringBuilder builder = new StringBuilder();
 
-        for (int i = 0;i < currentSequence.Count;i++)
+        for (int i = 0; i < currentSequence.Count; i++)
         {
             if (i > 0)
                 builder.Append(" + ");
@@ -356,73 +350,23 @@ public class ReactionManager : MonoBehaviour
     {
         switch (input)
         {
-            case ReactionInput.FaceSouth:
-                return "X";
-
-            case ReactionInput.FaceEast:
-                return "O";
-
-            case ReactionInput.FaceWest:
-                return "□";
-
-            case ReactionInput.FaceNorth:
-                return "△";
-
-            case ReactionInput.L1:
-                return "L1";
-
-            case ReactionInput.L2:
-                return "L2";
-
-            case ReactionInput.L3:
-                return "L3";
-
-            case ReactionInput.R1:
-                return "R1";
-
-            case ReactionInput.R2:
-                return "R2";
-
-            case ReactionInput.R3:
-                return "R3";
-
-            case ReactionInput.DPadUp:
-                return "↑";
-
-            case ReactionInput.DPadDown:
-                return "↓";
-
-            case ReactionInput.DPadLeft:
-                return "←";
-
-            case ReactionInput.DPadRight:
-                return "→";
+            case ReactionInput.FaceSouth: return "X";
+            case ReactionInput.FaceEast: return "O";
+            case ReactionInput.FaceWest: return "□";
+            case ReactionInput.FaceNorth: return "△";
+            case ReactionInput.L1: return "L1";
+            case ReactionInput.L2: return "L2";
+            case ReactionInput.L3: return "L3";
+            case ReactionInput.R1: return "R1";
+            case ReactionInput.R2: return "R2";
+            case ReactionInput.R3: return "R3";
+            case ReactionInput.DPadUp: return "↑";
+            case ReactionInput.DPadDown: return "↓";
+            case ReactionInput.DPadLeft: return "←";
+            case ReactionInput.DPadRight: return "→";
         }
 
         return input.ToString();
-    }
-
-    //Animation
-    private void TriggerAnimation(int playerIndex)
-    {
-        switch (expectedAction)
-        {
-            case 1:
-                players[playerIndex].PlayHands();
-                break;
-
-            case 10:
-                players[playerIndex].PlaySalute();
-                break;
-
-            case 11:
-                players[playerIndex].PlayHelloSir();
-                break;
-
-            case 12:
-                players[playerIndex].PlayHelloMadam();
-                break;
-        }
     }
 
     private void Start()

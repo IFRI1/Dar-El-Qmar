@@ -27,7 +27,15 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private DarElQmarControls controls;
 
+    [SerializeField] private Animator characterAnimator;
+
+    [Header("Controller Assignment")]
+    [Tooltip("0 = first controller, 1 = second controller, etc.")]
+    [SerializeField] private int controllerIndex = 0;
+
     public event Action<PlayerInputHandler, ReactionInput> OnReactionInput;
+
+    private InputDevice assignedDevice;
 
     private void Awake()
     {
@@ -36,6 +44,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        AssignController();
+
         controls.Enable();
 
         controls.Gameplay.FaceSouth.performed += OnFaceSouth;
@@ -80,85 +90,138 @@ public class PlayerInputHandler : MonoBehaviour
         controls.Disable();
     }
 
+    private void AssignController()
+    {
+        var gamepads = Gamepad.all;
+
+        if (controllerIndex < gamepads.Count)
+        {
+            assignedDevice = gamepads[controllerIndex];
+
+            Debug.Log($"{gameObject.name} assigned to {assignedDevice.displayName}");
+        }
+        else
+        {
+            assignedDevice = null;
+
+            Debug.LogWarning(
+                $"{gameObject.name} could not find controller {controllerIndex + 1}."
+            );
+        }
+    }
+
+    private bool IsAssignedController(InputAction.CallbackContext context)
+    {
+        return assignedDevice != null &&
+               context.control.device == assignedDevice;
+    }
+
     private void OnFaceSouth(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.FaceSouth);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.FaceSouth);
     }
 
     private void OnFaceEast(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.FaceEast);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.FaceEast);
     }
 
     private void OnFaceWest(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.FaceWest);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.FaceWest);
     }
 
     private void OnFaceNorth(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.FaceNorth);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.FaceNorth);
     }
 
     private void OnL1(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.L1);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.L1);
     }
 
     private void OnL2(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.L2);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.L2);
     }
 
     private void OnL3(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.L3);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.L3);
     }
 
     private void OnR1(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.R1);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.R1);
     }
 
     private void OnR2(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.R2);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.R2);
     }
 
     private void OnR3(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.R3);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.R3);
     }
 
     private void OnDPadUp(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.DPadUp);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.DPadUp);
     }
 
     private void OnDPadDown(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.DPadDown);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.DPadDown);
     }
 
     private void OnDPadLeft(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.DPadLeft);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.DPadLeft);
     }
 
     private void OnDPadRight(InputAction.CallbackContext context)
     {
-        ReportInput(ReactionInput.DPadRight);
+        if (IsAssignedController(context))
+            ReportInput(ReactionInput.DPadRight);
     }
 
     private void ReportInput(ReactionInput input)
     {
         Debug.Log($"{gameObject.name} pressed {input}");
 
-        OnReactionInput?.Invoke(this, input); ;
+        OnReactionInput?.Invoke(this, input);
     }
 
     public void ResetInput()
     {
-        // This method intentionally resets the player's reaction state for a new reaction window.
+        //Intentionally empty, ReactionManager uses this to reset the player's reaction state.
+    }
+
+    public void PlayLoseAnimation()
+    {
+        if (characterAnimator == null)
+        {
+            Debug.LogError($"{gameObject.name}: Animator is missing.");
+            return;
+        }
+
+        Debug.Log($"{gameObject.name} -> PLAYING LOSE ANIMATION");
+        characterAnimator.ResetTrigger("Lose");
+        characterAnimator.SetTrigger("Lose");
     }
 }

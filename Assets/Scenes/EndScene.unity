@@ -1701,7 +1701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 1663790718}
-  scoreText: {fileID: 1364595052}
 --- !u!4 &1970334711
 Transform:
   m_ObjectHideFlags: 0

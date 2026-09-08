@@ -13,8 +13,13 @@ public class EndSceneController : MonoBehaviour
         resultText.text = $"PLAYER {winner} WINS!";
     }
 
-    public void ReturnToMenu()
+    public void Replay()
     {
         SceneManager.LoadScene("StartMenu");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

@@ -24,6 +24,12 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
+        // Do not start gameplay while the cinematic is playing.
+        enabled = false;
+    }
+
+    public void BeginGameplay()
+    {
         players = dealer.GetPlayers();
 
         currentPlayerIndex = 0;
@@ -32,6 +38,8 @@ public class TurnManager : MonoBehaviour
         Debug.Log(
             $"TurnManager found {players.Count} active players."
         );
+
+        enabled = true;
     }
 
     void Update()
@@ -85,7 +93,6 @@ public class TurnManager : MonoBehaviour
                 $"REACTION REQUIRED: {card}"
             );
 
-            // Tell ReactionManager which player played the special card.
             reactionManager.OpenWindow(
                 card.Value,
                 currentPlayerIndex
@@ -94,7 +101,6 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        // If this was the player's final card, they win.
         if (currentPlayer.CardsRemaining == 0)
         {
             gameManager.EndGame(currentPlayerIndex);
@@ -128,7 +134,6 @@ public class TurnManager : MonoBehaviour
         timer = turnInterval;
     }
 
-    // Called by ReactionManager when the reaction has been resolved.
     public void EndReactionPhase(int nextPlayerIndex)
     {
         waitingForReaction = false;
@@ -150,7 +155,6 @@ public class TurnManager : MonoBehaviour
             $"{players[currentPlayerIndex].PlayerNumber}"
         );
 
-        // The loser should play immediately.
         timer = 0f;
     }
 
