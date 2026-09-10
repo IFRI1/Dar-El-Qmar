@@ -193,9 +193,9 @@ public class ReactionManager : MonoBehaviour
 
             PlayLoseAnimation(loserIndex);
 
-            CollectTable(playerIndex);
+            CollectTable(loserIndex);
 
-            nextPlayerIndex = playerIndex;
+            nextPlayerIndex = loserIndex;
             Invoke(nameof(FinishReaction), resultDelay);
             return;
         }
@@ -227,9 +227,9 @@ public class ReactionManager : MonoBehaviour
 
             Debug.Log($"Player {winnerIndex + 1} WINS because Player {loserIndex + 1} made a wrong input.");
 
-            CollectTable(winnerIndex);
+            CollectTable(loserIndex);
 
-            nextPlayerIndex = winnerIndex;
+            nextPlayerIndex = loserIndex;
             Invoke(nameof(FinishReaction), resultDelay);
             return;
         }
@@ -252,20 +252,22 @@ public class ReactionManager : MonoBehaviour
             {
                 if (!completionOrder.Contains(i) && !eliminatedPlayers.Contains(i))
                 {
+                    int loserIndex = i;
+
                     roundResolved = true;
                     windowOpen = false;
 
                     Debug.Log($"Player {i + 1} is the final remaining player and LOSES.");
 
-                    PlayLoseAnimation(i);
+                    PlayLoseAnimation(loserIndex);
 
                     // The first completed player wins the round.
                     int winnerIndex = completionOrder.Count > 0 ? completionOrder[0] : -1;
 
                     if (winnerIndex >= 0)
                     {
-                        CollectTable(winnerIndex);
-                        nextPlayerIndex = winnerIndex;
+                        CollectTable(loserIndex);
+                        nextPlayerIndex = loserIndex;
                     }
                     else
                     {
