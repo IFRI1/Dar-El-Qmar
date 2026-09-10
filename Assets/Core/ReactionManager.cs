@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using TMPro;
 
 public class ReactionManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ReactionManager : MonoBehaviour
     [SerializeField] private TablePile tablePile;
     [SerializeField] private Transform spawnedCards;
     [SerializeField] private TurnManager turnManager;
+    [SerializeField] private TMP_Text[] reactionTexts;
 
     [Header("Reaction Settings")]
     [SerializeField] private int minimumSequenceLength = 2;
@@ -37,6 +39,17 @@ public class ReactionManager : MonoBehaviour
 
         GenerateRandomSequence();
         ResetPlayers();
+
+        string sequenceText = GetSequenceText();
+
+        for (int i = 0; i < reactionTexts.Length; i++)
+        {
+            if (reactionTexts[i] != null && i < GameSettings.PlayerCount)
+            {
+                reactionTexts[i].text = sequenceText;
+                reactionTexts[i].gameObject.SetActive(true);
+            }
+        }
 
         windowOpen = true;
         roundResolved = false;
@@ -307,6 +320,12 @@ public class ReactionManager : MonoBehaviour
 
     private void FinishReaction()
     {
+        for (int i = 0; i < reactionTexts.Length; i++)
+        {
+            if (reactionTexts[i] != null)
+                reactionTexts[i].gameObject.SetActive(false);
+        }
+
         playerProgress.Clear();
         completionOrder.Clear();
         eliminatedPlayers.Clear();
